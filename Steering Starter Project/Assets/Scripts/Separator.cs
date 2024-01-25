@@ -7,13 +7,14 @@ public class Separator : Kinematic
     Separation myMoveType;
     LookWhereGoing myRotateType;
 
+    public GameObject[] targets;
+
     // Start is called before the first frame update
     void Start()
     {
         myMoveType = new Separation();
         myMoveType.character = this;
-        myMoveType.targets = new GameObject[1];
-        myMoveType.targets[0] = myTarget;
+        myMoveType.targets = targets;
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;

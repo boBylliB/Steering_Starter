@@ -7,7 +7,7 @@ public class Separation : SteeringBehavior
     public Kinematic character;
     float maxAcceleration = 1f;
 
-    public Kinematic[] targets;
+    public GameObject[] targets;
 
     // the threshold to take action
     float threshold = 5f; // 5
@@ -19,7 +19,7 @@ public class Separation : SteeringBehavior
     {
         SteeringOutput result = new SteeringOutput();
 
-        foreach (Kinematic target in targets)
+        foreach (GameObject target in targets)
         {
             Vector3 direction = character.transform.position - target.transform.position;
             float distance = direction.magnitude;

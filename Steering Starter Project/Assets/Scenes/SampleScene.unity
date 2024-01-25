@@ -350,7 +350,7 @@ MonoBehaviour:
   angularVelocity: 0
   maxSpeed: 3
   maxAngularVelocity: 45
-  myTarget: {fileID: 200878233}
+  myTarget: {fileID: 2101585447}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   linearVelocity: {x: 5, y: 0, z: 5}
   angularVelocity: 0
   maxSpeed: 1
-  maxAngularVelocity: 5000
+  maxAngularVelocity: 45
   myTarget: {fileID: 281066794}
   flee: 0
 --- !u!65 &2101585449

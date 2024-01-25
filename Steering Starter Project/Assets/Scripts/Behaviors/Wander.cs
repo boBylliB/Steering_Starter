@@ -5,8 +5,6 @@ using UnityEngine;
 // based on Millington pp. 75-76
 public class Wander : Face
 {
-    // TODO: Find an elegant way to set the linear acceleration
-    
     // The radius and forward offset of the wander circle
     float wanderOffset = 5f;
     float wanderRadius = 3f;
@@ -43,8 +41,14 @@ public class Wander : Face
 
         // Calculate the target location
         targetPoint += wanderRadius * angleToVector(targetOrientation);
-
+        
         // Use Face to align to the target point
         return targetPoint;
+    }
+
+    // This function overrides Align's zero linear with full acceleration
+    public override Vector3 getDesiredLinear()
+    {
+        return maxAcceleration * angleToVector(character.transform.eulerAngles.y);
     }
 }

@@ -27,6 +27,14 @@ public class Align : SteeringBehavior
         return target.transform.eulerAngles.y;
     }
 
+    // Returns the desired linear acceleration for the steering behaviour
+    // Since Align doesn't set this, by default it just outputs 0
+    // This, however, is intended to be overriden by other classes that do implement a linear
+    public virtual Vector3 getDesiredLinear()
+    {
+        return Vector3.zero;
+    }
+
     public override SteeringOutput getSteering()
     {
         SteeringOutput result = new SteeringOutput();
@@ -70,7 +78,7 @@ public class Align : SteeringBehavior
             result.angular *= maxAngularAcceleration;
         }
 
-        result.linear = Vector3.zero;
+        result.linear = getDesiredLinear();
         return result;
     }
 }

@@ -31,15 +31,15 @@ public class Path : MonoBehaviour
     // and between target 1 and 2, the parameter linearly increases from 1 to 2
     public float GetParam(Vector3 position, float lastParam)
     {
-        // If there are no path targets, return 0
-        if (pathTargets.Count == 0) return 0;
-
         // We can use lastParam to determine if we've passed any new pathTargets, and remove them if so
         while (Mathf.FloorToInt(lastParam) > idxOffset)
         {
             ++idxOffset;
             pathTargets.RemoveAt(0);
         }
+
+        // If there are less than 2 path targets, return 0
+        if (pathTargets.Count < 2) return 0;
 
         // Use the lastParam to find the starting search index
         int searchIdx = Mathf.FloorToInt(lastParam);
@@ -56,9 +56,10 @@ public class Path : MonoBehaviour
         Debug.Log("prevDist = " + prevDist + " nextDist = " + nextDist);
         // Since it ends with the previous distance being a local minimum, we need to decrement the index by 1
         --searchIdx;
-        // We actually need to find the closest line segment, not just point, so we then select the minimum of the two options on either side of the closest target
+        // We actually need to find the closest line segment, not just point,
+        // so we then select the minimum of the two options on either side of the closest target
         int endIdx = DistanceToTarget(searchIdx - 1, position) < DistanceToTarget(searchIdx + 1, position) ? searchIdx - 1 : searchIdx + 1;
-        Debug.Log(" searchIdx = " + searchIdx + " endIdx = " + endIdx)
+        Debug.Log(" searchIdx = " + searchIdx + " endIdx = " + endIdx + " idxOffset = " + idxOffset + " Count = " + pathTargets.Count);
 
         // Now, we just need to find the closest point along that line segment, and add it to the found index
         // In this case, since we're using it as a path parameter, we can actually directly use a parameter along the line,
@@ -74,12 +75,16 @@ public class Path : MonoBehaviour
         // If there is only 1 path target, return that position
         if (pathTargets.Count == 1) return pathTargets[0].transform.position;
 
+        // Limit the parameter to utilize only available path targets
+        param -= Mathf.Max(0, Mathf.FloorToInt(param - idxOffset) - pathTargets.Count + 2);
+
         // Use the parameter given to find the path targets to use
         int startIdx = Mathf.FloorToInt(param);
+        Debug.Log("startIdx = " + startIdx);
 
         // Use the path targets to create a line segment, for which the parameter can directly be used to find a point along that line segment
         Vector3 start = pathTargets[startIdx - idxOffset].transform.position;
-        Vector3 end = pathTargets[startIdx - idxOffset - 1].transform.position;
+        Vector3 end = pathTargets[startIdx - idxOffset + 1].transform.position;
 
         // Return the point along that line corresponding to the given parameter
         return start + (param - startIdx) * (end - start);

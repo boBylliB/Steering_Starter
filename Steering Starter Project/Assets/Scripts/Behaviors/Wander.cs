@@ -6,11 +6,11 @@ using UnityEngine;
 public class Wander : Face
 {
     // The radius and forward offset of the wander circle
-    float wanderOffset = 5f;
-    float wanderRadius = 3f;
+    public float wanderOffset = 5f;
+    public float wanderRadius = 3f;
 
     // The maximum rate of change of the wander orientation
-    float wanderRate = 3f;
+    public float wanderRate = 3f;
 
     // The current orientation of the wander target
     float wanderOrientation = 0f;

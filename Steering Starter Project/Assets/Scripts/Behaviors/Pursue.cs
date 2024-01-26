@@ -7,6 +7,8 @@ public class Pursue : Seek
     // the maximum prediction time
     float maxPredictionTime = 1f;
 
+    public bool evade = false;
+
     // overrides the position seek will aim for
     // assume the target will continue travelling in the same direction and speed
     // pick a point farther along that vector
@@ -38,6 +40,9 @@ public class Pursue : Seek
             // default to seek behavior for non-kinematic targets
             return base.getTargetPosition();
         }
+
+        // If we should be evading, set the seek behaviour to flee instead
+        flee = evade;
 
         return target.transform.position + myMovingTarget.linearVelocity * predictionTime;
     }

@@ -9,6 +9,7 @@ public class PathFollower : Kinematic
 
     public Path path;
     public float pathOffset = 1f;
+    public bool predictive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class PathFollower : Kinematic
         myMoveType.character = this;
         myMoveType.path = path;
         myMoveType.pathOffset = pathOffset;
+        myMoveType.predictive = predictive;
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;

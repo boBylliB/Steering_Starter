@@ -5,7 +5,6 @@ using UnityEngine;
 public class PathCreator : MonoBehaviour
 {
     public float difference = 0.2f;
-    public GameObject pathTarget;
     public Path pathController;
 
     // Store the previous position
@@ -21,7 +20,7 @@ public class PathCreator : MonoBehaviour
         if ((transform.position - prevPosition).magnitude > difference)
         {
             prevPosition = transform.position;
-            pathController.pathTargets.Add(Instantiate(pathTarget, prevPosition, Quaternion.identity));
+            pathController.createPathTarget(prevPosition);
         }
     }
 }

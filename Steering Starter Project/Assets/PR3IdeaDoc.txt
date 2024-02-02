@@ -1,3 +1,18 @@
+football-esque game?
+need collision behavior, but on impact stop steering
+target type
+- looks where going
+- avoids collision with enemies
+- seeks towards goal
+defender type
+- looks where going
+- pursues closest enemy to target
+- separates from friendlies
+attacker type
+- looks where going
+- pursues target
+- separates from friendlies
+
 soccer game?
 need collision behavior:
 - when collision is detected, will use velocity of both to calculate momentum transfer

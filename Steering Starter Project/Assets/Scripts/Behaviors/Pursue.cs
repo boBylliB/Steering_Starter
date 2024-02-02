@@ -12,8 +12,9 @@ public class Pursue : Seek
     // overrides the position seek will aim for
     // assume the target will continue travelling in the same direction and speed
     // pick a point farther along that vector
-    protected override Vector3 getTargetPosition()
+    protected override Vector3 getTargetPosition(out bool valid)
     {
+        valid = true;
         // 1. figure out how far ahead in time we should predict
         Vector3 directionToTarget = target.transform.position - character.transform.position;
         float distanceToTarget = directionToTarget.magnitude;
@@ -38,7 +39,7 @@ public class Pursue : Seek
         if (myMovingTarget == null)
         {
             // default to seek behavior for non-kinematic targets
-            return base.getTargetPosition();
+            return base.getTargetPosition(out valid);
         }
 
         // If we should be evading, set the seek behaviour to flee instead

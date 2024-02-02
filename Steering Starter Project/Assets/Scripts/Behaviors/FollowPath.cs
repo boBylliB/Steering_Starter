@@ -19,8 +19,9 @@ public class FollowPath : Seek
     float currentParam = 0f;
 
     // Overrides Seek's target position with the targeted point on the path
-    protected override Vector3 getTargetPosition()
+    protected override Vector3 getTargetPosition(out bool valid)
     {
+        valid = true;
         // Predict the future character position, or use the current position, based on the predictive boolean
         Vector3 pos = predictive ? character.transform.position + character.linearVelocity * predictionTime : character.transform.position;
 

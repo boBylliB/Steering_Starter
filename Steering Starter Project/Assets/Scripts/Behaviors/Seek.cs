@@ -11,18 +11,28 @@ public class Seek : SteeringBehavior
 
     public bool flee = false;
 
-    protected virtual Vector3 getTargetPosition()
+    protected virtual Vector3 getTargetPosition(out bool valid)
     {
+        valid = true;
         return target.transform.position;
     }
 
     public override SteeringOutput getSteering()
     {
         SteeringOutput result = new SteeringOutput();
-        Vector3 targetPosition = getTargetPosition();
+        bool valid = true;
+        Vector3 targetPosition = getTargetPosition(out valid);
         if (targetPosition == Vector3.positiveInfinity)
         {
             return null;
+        }
+        else if (!valid)
+        {
+            // If this case occurs, then the valid flag was deliberately set to false
+            // In this case, do nothing
+            result.linear = Vector3.zero;
+            result.angular = 0;
+            return result;
         }
 
         // Get the direction to the target

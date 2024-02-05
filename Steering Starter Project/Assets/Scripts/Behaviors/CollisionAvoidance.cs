@@ -7,9 +7,7 @@ public class CollisionAvoidance : SteeringBehavior
     public Kinematic character;
     float maxAcceleration = 1f;
 
-    public Kinematic[] targets;
-
-    public LineRenderer lr;
+    public List<Kinematic> targets;
 
     // The collision radius of a character
     // This assumes that all characters have the same collision radius

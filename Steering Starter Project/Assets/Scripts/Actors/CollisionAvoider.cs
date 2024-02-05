@@ -8,7 +8,7 @@ public class CollisionAvoider : Kinematic
     LookWhereGoing myRotateType;
 
     // The targets to avoid
-    public Kinematic[] targets;
+    public List<Kinematic> targets;
     // The collision radius of a character
     public float radius = 1f;
 
@@ -21,7 +21,6 @@ public class CollisionAvoider : Kinematic
         myMoveType.character = this;
         myMoveType.targets = targets;
         myMoveType.radius = radius;
-        myMoveType.lr = lr;
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;

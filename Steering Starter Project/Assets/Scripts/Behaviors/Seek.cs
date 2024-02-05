@@ -13,8 +13,16 @@ public class Seek : SteeringBehavior
 
     protected virtual Vector3 getTargetPosition(out bool valid)
     {
-        valid = true;
-        return target.transform.position;
+        if (target != null)
+        {
+            valid = true;
+            return target.transform.position;
+        }
+        else
+        {
+            valid = false;
+            return Vector3.positiveInfinity;
+        }
     }
 
     public override SteeringOutput getSteering()

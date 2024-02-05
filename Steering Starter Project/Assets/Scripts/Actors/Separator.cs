@@ -7,7 +7,7 @@ public class Separator : Kinematic
     Separation myMoveType;
     LookWhereGoing myRotateType;
 
-    public GameObject[] targets;
+    public List<Kinematic> targets;
 
     // Start is called before the first frame update
     void Start()

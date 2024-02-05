@@ -13,6 +13,12 @@ public class AggressiveCollisionAvoidance : SteeringBehavior
     // This assumes that all characters have the same collision radius
     public float radius = 1f;
 
+    public bool debug = false;
+    public LineRenderer lr1;
+    public LineRenderer lr2;
+    public Material relPosMat;
+    public Material relVelMat;
+
     public override SteeringOutput getSteering()
     {
         SteeringOutput result = new SteeringOutput();
@@ -88,6 +94,17 @@ public class AggressiveCollisionAvoidance : SteeringBehavior
         // Full send in the chosen direction
         result.linear.Normalize();
         result.linear *= maxAcceleration;
+
+        // Debug visualization
+        if (debug)
+        {
+            lr1.SetPosition(0, character.transform.position);
+            lr2.SetPosition(0, character.transform.position);
+            lr1.SetPosition(1, minTarget.transform.position);
+            lr2.SetPosition(1, character.transform.position + minRelVel.normalized * 2);
+            lr1.material = relPosMat;
+            lr2.material = relVelMat;
+        }
 
         return result;
     }

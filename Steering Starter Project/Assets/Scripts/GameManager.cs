@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public int standInSelectLock = -1;
     int nextID = 0;
 
+    public bool debugEnabled = false;
+
     public List<Kinematic> getPlayers(bool teamA)
     {
         return teamA ? ATeam : BTeam;
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
         {
             StandIn standIn = standIns[0];
             standIns.RemoveAt(0);
-            standIn.spawnPlayer();
+            standIn.spawnPlayer(debugEnabled);
         }
     }
 }

@@ -25,6 +25,14 @@ public class Player : Kinematic
     public Material attackMat;
     public Material defendMat;
 
+    public bool debug = false;
+    public LineRenderer[] lr;
+    public Material hitMat;
+    public Material missMat;
+    public Material sepMat;
+    public Material relPosMat;
+    public Material relVelMat;
+
     public enum playerTypes
     {
         target, defender, attacker
@@ -54,18 +62,32 @@ public class Player : Kinematic
         myEnemyAvoidType = new AggressiveCollisionAvoidance();
         myEnemyAvoidType.character = this;
         myEnemyAvoidType.targets = gm.getPlayers(!teamA);
+        myEnemyAvoidType.debug = debug;
+        myEnemyAvoidType.lr1 = lr[0];
+        myEnemyAvoidType.lr2 = lr[1];
+        myEnemyAvoidType.relPosMat = relPosMat;
+        myEnemyAvoidType.relVelMat = relVelMat;
 
         myWallAvoidType = new ObstacleAvoidance();
         myWallAvoidType.character = this;
         myWallAvoidType.avoidDist = avoidDist;
         myWallAvoidType.lookAhead = lookAhead;
-        myWallAvoidType.ignoredTags = new List<string>();
-        myWallAvoidType.ignoredTags.Add(gm.tagA);
-        myWallAvoidType.ignoredTags.Add(gm.tagB);
+        myWallAvoidType.ignoredTags = new List<string>
+        {
+            gm.tagA,
+            gm.tagB
+        };
+        myWallAvoidType.debug = debug;
+        myWallAvoidType.lr = lr[2];
+        myWallAvoidType.hitMat = hitMat;
+        myWallAvoidType.missMat = missMat;
 
         mySeparateType = new Separation();
         mySeparateType.character = this;
         mySeparateType.targets = gm.getPlayers(teamA);
+        mySeparateType.debug = debug;
+        mySeparateType.lr = lr[3];
+        mySeparateType.lrMat = sepMat;
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;
@@ -136,6 +158,11 @@ public class Player : Kinematic
                 gm.ATeam.Remove(this);
             else
                 gm.BTeam.Remove(this);
+            if (type == playerTypes.target)
+            {
+                FindObjectOfType<UIController>().win(!teamA);
+                Time.timeScale = 0;
+            }
         }
         base.Update();
         // Simple double check to make sure the y level is still 0

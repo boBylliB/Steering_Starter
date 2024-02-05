@@ -85,12 +85,13 @@ public class StandIn : MonoBehaviour
         selected = false;
     }
 
-    public void spawnPlayer()
+    public void spawnPlayer(bool debug)
     {
         GameObject newObject = Instantiate(playerPrefab, transform.position, Quaternion.identity);
         Player player = newObject.GetComponent<Player>();
         player.teamA = teamA;
         player.type = type;
+        player.debug = debug;
         if (type == Player.playerTypes.target)
             gm.updateTarget(player, teamA);
         Object.Destroy(gameObject);

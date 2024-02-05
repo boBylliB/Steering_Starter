@@ -584,7 +584,7 @@ MonoBehaviour:
   maxAngularVelocity: 45
   myTarget: {fileID: 2101585447}
   targets:
-  - {fileID: 2101585447}
+  - {fileID: 2101585448}
 --- !u!1 &422476728
 GameObject:
   m_ObjectHideFlags: 0

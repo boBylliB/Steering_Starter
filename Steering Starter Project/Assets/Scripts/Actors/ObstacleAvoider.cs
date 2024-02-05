@@ -27,6 +27,7 @@ public class ObstacleAvoider : Kinematic
         myMoveType.hitMat = hitMat;
         myMoveType.missMat = missMat;
         myMoveType.debug = true;
+        myMoveType.ignoredTags = new List<string>();
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;

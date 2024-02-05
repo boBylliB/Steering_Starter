@@ -14,6 +14,13 @@ public class Pursue : Seek
     // pick a point farther along that vector
     protected override Vector3 getTargetPosition(out bool valid)
     {
+        // Make sure we have a target
+        if (target == null)
+        {
+            valid = false;
+            return Vector3.positiveInfinity;
+        }
+
         valid = true;
         // 1. figure out how far ahead in time we should predict
         Vector3 directionToTarget = target.transform.position - character.transform.position;

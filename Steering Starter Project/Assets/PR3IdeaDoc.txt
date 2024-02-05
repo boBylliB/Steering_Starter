@@ -1,0 +1,45 @@
+football-esque game?
+need collision behavior, but on impact stop steering
+target type
+- looks where going
+- avoids collision with enemies
+- seeks towards goal
+defender type
+- looks where going
+- pursues closest enemy to target
+- separates from friendlies
+attacker type
+- looks where going
+- pursues target
+- separates from friendlies
+
+soccer game?
+need collision behavior:
+- when collision is detected, will use velocity of both to calculate momentum transfer
+- disable steering for 0.25 seconds?
+need characters that act like players
+defender type
+- looks where going when far from target
+- looks at target when close
+- pursues the closest enemy player to the ball
+- separates from close friendly players
+- avoids collision with the ball
+- avoids walls
+forward type
+- looks where going when far from ball
+- looks at ball when close
+- avoids collision with enemy players
+- separates from close friendly players
+- tries to hit the ball towards the goal
+  - path following?
+    - define a vector from the center of the goal entrance to the ball
+    - place a path target to the side of the ball, on the same side of this vector as the player
+    - place another path target directly behind the ball
+    - place the final path target at the center of the ball
+    - select which path target to choose based on position of player relative to ball
+      - for instance, if the player is already behind the ball the side path target is unnecessary
+- avoids walls
+need to implement dragging of players for positioning
+need to implement defender/forward behavior selection
+need soccer arena, curved corners are ideal, with a goal
+enemy positioning and behavior selection is randomized between a few presets

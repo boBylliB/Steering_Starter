@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DV3.unity
     guid: d696643916a1eec4385a773ed08c1fe2
+  - enabled: 1
+    path: Assets/Scenes/PR3.unity
+    guid: a5580e7eaffce794aa8e4b16c7c825ee
   m_configObjects: {}

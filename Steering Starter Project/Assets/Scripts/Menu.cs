@@ -17,4 +17,8 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
     }
+    public void StartDV4()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+    }
 }

@@ -16,8 +16,38 @@ public class ObstacleAvoidance : Seek
     // Any tags to ignore
     public List<string> ignoredTags;
 
+    // The number of rays to cast
+    public int numRays = 1;
+    // The ray spread angle
+    public float rayAngle = 10f;
+
+    int currentRay = 0;
+
+    // Takes in an orientation angle (in degrees) and outputs a normalized vector pointing in that direction
+    private Vector3 angleToVector(float angle)
+    {
+        // Since we're about to normalize it, magnitude doesn't matter
+        // Therefore, I just assume one side of the "triangle" is 1
+        Vector3 result = new Vector3(Mathf.Tan(angle * Mathf.Deg2Rad), 0, 1);
+        return result.normalized;
+    }
     protected override Vector3 getTargetPosition(out bool valid)
     {
+        // Calculate the raycast direction
+        // If there's only one ray, we can ignore this step
+        Vector3 raycastDir = character.linearVelocity.normalized;
+        if (numRays > 1)
+        {
+            // Offset the ray from negative to positive angles, evenly
+            float raySpread = rayAngle / (numRays - 1);
+            float rayOffset = (-raySpread / 2) + raySpread * currentRay;
+            // Get the angle of the current forward direction
+            float currentAngle = Mathf.Atan2(raycastDir.z, raycastDir.x);
+            // Add the offset angle
+            currentAngle += rayOffset;
+            // Set the new raycast direction
+            raycastDir = angleToVector(currentAngle);
+        }
         // We want to store raycast data to get the point of intersection
         RaycastHit hitInfo;
         if (debug)
@@ -26,27 +56,30 @@ public class ObstacleAvoidance : Seek
             lr.SetPosition(0, character.transform.position);
             lr.SetPosition(1, character.linearVelocity.normalized * lookAhead + character.transform.position);
         }
+        Vector3 targetPoint = Vector3.zero;
         // Raycast ahead to check for a collision
-        if (Physics.Raycast(character.transform.position, character.linearVelocity, out hitInfo, lookAhead) && !ignoredTags.Contains(hitInfo.collider.tag))
+        if (Physics.Raycast(character.transform.position, raycastDir, out hitInfo, lookAhead) && !ignoredTags.Contains(hitInfo.collider.tag))
         {
             if (debug)
                 lr.material = hitMat;
             valid = true;
-            Vector3 targetPoint = hitInfo.point + hitInfo.normal * avoidDist;
+            targetPoint = hitInfo.point + hitInfo.normal * avoidDist;
             // Deliberately remove any y values
             targetPoint.y = 0;
-            return targetPoint;
         }
         else
         {
             if (debug)
                 lr.material = missMat;
             // If there's no collision, set the seek position to be invalid
-            //valid = false;
-            //return Vector3.positiveInfinity;
-            // For demonstration, instead of doing nothing we accelerate at full speed forwards
-            valid = true;
-            return character.transform.position + character.linearVelocity.normalized;
+            valid = false;
+            targetPoint = Vector3.positiveInfinity;
         }
+
+        // Iterate the ray count
+        currentRay++;
+        if (currentRay >= numRays) currentRay = 0;
+
+        return targetPoint;
     }
 }

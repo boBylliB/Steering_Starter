@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class SteeringBehavior
 {
     public abstract SteeringOutput getSteering();
+    public float weight = 1f;
 }

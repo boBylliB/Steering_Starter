@@ -28,8 +28,17 @@ public class ObstacleAvoidance : Seek
     {
         // Since we're about to normalize it, magnitude doesn't matter
         // Therefore, I just assume one side of the "triangle" is 1
-        Vector3 result = new Vector3(Mathf.Tan(angle * Mathf.Deg2Rad), 0, 1);
+        Vector3 result = new Vector3(-Mathf.Tan(angle * Mathf.Deg2Rad), 0, 1);
         return result.normalized;
+    }
+    // Takes in a vector and outputs an orientation angle (in degrees)
+    private float vectorToAngle(Vector3 vector)
+    {
+        // Normalize the vector just to make sure
+        vector.Normalize();
+        // Have to make sure we're using a coordinate system where angle 0 is at the z axis and it increases counterclockwise around the y vector
+        float result = Mathf.Atan2(-vector.x, vector.z);
+        return result;
     }
     protected override Vector3 getTargetPosition(out bool valid)
     {
@@ -40,9 +49,9 @@ public class ObstacleAvoidance : Seek
         {
             // Offset the ray from negative to positive angles, evenly
             float raySpread = rayAngle / (numRays - 1);
-            float rayOffset = (-raySpread / 2) + raySpread * currentRay;
+            float rayOffset = (-rayAngle / 2) + raySpread * currentRay;
             // Get the angle of the current forward direction
-            float currentAngle = Mathf.Atan2(raycastDir.z, raycastDir.x);
+            float currentAngle = vectorToAngle(raycastDir);
             // Add the offset angle
             currentAngle += rayOffset;
             // Set the new raycast direction
@@ -54,7 +63,7 @@ public class ObstacleAvoidance : Seek
         {
             // Set debug line renderer stuff
             lr.SetPosition(0, character.transform.position);
-            lr.SetPosition(1, character.linearVelocity.normalized * lookAhead + character.transform.position);
+            lr.SetPosition(1, raycastDir * lookAhead + character.transform.position);
         }
         Vector3 targetPoint = Vector3.zero;
         // Raycast ahead to check for a collision

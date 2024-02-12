@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flocker : Kinematic
 {
-    Flocking myMoveType;
+    PrioritizedFlocking myMoveType;
     LookWhereGoing myRotateType;
 
     public FlockCOM centerOfMass;
@@ -33,10 +33,15 @@ public class Flocker : Kinematic
 
     public float maxAngularAcceleration = 10f;
 
+    public float epsilon = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
-        myMoveType = new Flocking();
+        myMoveType = new PrioritizedFlocking();
+        // We're using this solely for movement, so we can ignore angular accelerations
+        myMoveType.ignoreAngular = true;
+        myMoveType.linearEpsilon = epsilon;
         myMoveType.character = this;
         myMoveType.flock = centerOfMass.flock;
         myMoveType.centerOfMass = centerOfMass;

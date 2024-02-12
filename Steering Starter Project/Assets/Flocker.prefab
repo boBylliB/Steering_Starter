@@ -112,15 +112,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linearVelocity: {x: 0, y: 0, z: 0}
   angularVelocity: 0
-  maxSpeed: 3
+  maxSpeed: 5
   maxAngularVelocity: 100
   myTarget: {fileID: 0}
   centerOfMass: {fileID: 0}
-  targetSpeed: 2
+  targetSpeed: 3
   radius: 2
   sepThreshold: 3
-  avoidDist: 20
-  lookAhead: 5
+  avoidDist: 10
+  lookAhead: 3
   ignoredTags:
   - bird
   debug: 1
@@ -130,6 +130,7 @@ MonoBehaviour:
   numRays: 1
   rayAngle: 90
   maxAngularAcceleration: 1000
+  epsilon: 1
 --- !u!120 &4888487179025509652
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -29,6 +29,8 @@ public class PrioritizedFlocking : Prioritization
     public int numRays = 1;
     // The ray spread angle
     public float rayAngle = 10f;
+    // The current iteration count
+    public int iterationCount = 0;
 
     public float sepWeight = 1f;
     public float alignWeight = 1f;
@@ -57,6 +59,7 @@ public class PrioritizedFlocking : Prioritization
         avoid.numRays = numRays;
         avoid.rayAngle = rayAngle;
         avoid.radius = radius;
+        avoid.iterationCount = iterationCount;
         groups.Add(avoid);
 
         // Flocking

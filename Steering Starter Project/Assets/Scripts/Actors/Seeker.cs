@@ -8,6 +8,7 @@ public class Seeker : Kinematic
     Face mySeekRotateType;
     LookWhereGoing myFleeRotateType;
 
+    public float maxAcceleration = 100f;
     public bool flee = false;
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class Seeker : Kinematic
         myMoveType.character = this;
         myMoveType.target = myTarget;
         myMoveType.flee = flee;
+        myMoveType.maxAcceleration = maxAcceleration;
 
         mySeekRotateType = new Face();
         mySeekRotateType.character = this;

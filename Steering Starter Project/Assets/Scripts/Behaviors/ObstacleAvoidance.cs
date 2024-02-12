@@ -21,23 +21,21 @@ public class ObstacleAvoidance : Seek
     // The ray spread angle
     public float rayAngle = 10f;
 
-    int currentRay = 0;
+    public int currentRay = 0;
 
     // Takes in an orientation angle (in degrees) and outputs a normalized vector pointing in that direction
     private Vector3 angleToVector(float angle)
     {
         // Since we're about to normalize it, magnitude doesn't matter
-        // Therefore, I just assume one side of the "triangle" is 1
-        Vector3 result = new Vector3(-Mathf.Tan(angle * Mathf.Deg2Rad), 0, 1);
+        Vector3 result = new Vector3(-Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad));
         return result.normalized;
     }
     // Takes in a vector and outputs an orientation angle (in degrees)
     private float vectorToAngle(Vector3 vector)
     {
         // Normalize the vector just to make sure
-        vector.Normalize();
         // Have to make sure we're using a coordinate system where angle 0 is at the z axis and it increases counterclockwise around the y vector
-        float result = Mathf.Atan2(-vector.x, vector.z);
+        float result = Mathf.Atan2(-vector.normalized.x, vector.normalized.z) * Mathf.Rad2Deg;
         return result;
     }
     protected override Vector3 getTargetPosition(out bool valid)
@@ -84,10 +82,6 @@ public class ObstacleAvoidance : Seek
             valid = false;
             targetPoint = Vector3.positiveInfinity;
         }
-
-        // Iterate the ray count
-        currentRay++;
-        if (currentRay >= numRays) currentRay = 0;
 
         return targetPoint;
     }

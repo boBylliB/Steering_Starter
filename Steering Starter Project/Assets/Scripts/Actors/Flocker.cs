@@ -35,6 +35,8 @@ public class Flocker : Kinematic
 
     public float epsilon = 0.1f;
 
+    private int iterationCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,7 @@ public class Flocker : Kinematic
     {
         steeringUpdate = new SteeringOutput();
         steeringUpdate.linear = myMoveType.getSteering().linear;
+        myMoveType.iterationCount = iterationCount++ % numRays;
         steeringUpdate.angular = myRotateType.getSteering().angular;
         base.Update();
         // Simple double check to make sure the y level is still 0

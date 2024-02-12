@@ -26,6 +26,8 @@ public class GeneralAvoidance : BlendedBehavior
     public int numRays = 1;
     // The ray spread angle
     public float rayAngle = 10f;
+    // The current iteration count
+    public int iterationCount = 0;
 
     public float avoidWeight = 1f;
     public float dodgeWeight = 1f;
@@ -46,6 +48,7 @@ public class GeneralAvoidance : BlendedBehavior
         avoid.ignoredTags = ignoredTags;
         avoid.numRays = numRays;
         avoid.rayAngle = rayAngle;
+        avoid.currentRay = iterationCount;
         behaviors.Add(avoid);
 
         // Collision avoidance

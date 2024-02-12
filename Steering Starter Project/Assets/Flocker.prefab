@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4888487179025509679}
-  m_Mesh: {fileID: -462981019419857548, guid: cfb6e793dfbeeed4897862c98883b1d5, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: 9145c9dbd34329d4498e4264394cfa1f, type: 3}
 --- !u!23 &4888487179025509673
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -117,18 +117,18 @@ MonoBehaviour:
   myTarget: {fileID: 0}
   centerOfMass: {fileID: 0}
   targetSpeed: 3
-  radius: 2
+  radius: 3
   sepThreshold: 3
-  avoidDist: 10
-  lookAhead: 3
+  avoidDist: 20
+  lookAhead: 5
   ignoredTags:
   - bird
   debug: 1
   lr: {fileID: 4888487179025509652}
   hitMat: {fileID: 2100000, guid: 4505904a8dd3bc5498a85de3825183df, type: 2}
   missMat: {fileID: 2100000, guid: 56b306bf5cf435041ac1d5270d89c71b, type: 2}
-  numRays: 1
-  rayAngle: 90
+  numRays: 3
+  rayAngle: 30
   maxAngularAcceleration: 1000
   epsilon: 1
 --- !u!120 &4888487179025509652

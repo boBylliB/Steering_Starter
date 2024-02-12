@@ -7,7 +7,7 @@ public class Seek : SteeringBehavior
     public Kinematic character;
     public GameObject target;
 
-    float maxAcceleration = 100f;
+    public float maxAcceleration = 100f;
 
     public bool flee = false;
 
